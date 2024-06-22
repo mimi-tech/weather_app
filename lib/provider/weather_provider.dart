@@ -1,7 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:weather_app/model/weather_model.dart';
 import 'package:weather_app/repository/feedback.dart';
 import 'package:weather_app/repository/weather_repository.dart';
+import 'package:flutter/foundation.dart';
+
+/// A provider class to manage the weather data and state for the application.
+///
+/// The `WeatherProvider` class interacts with the `WeatherRepository` to fetch weather data,
+/// handles loading and error states, and caches the weather data in-memory to optimize
+/// performance and reduce redundant network requests.
 
 class WeatherProvider extends ChangeNotifier{
 
@@ -36,6 +42,20 @@ class WeatherProvider extends ChangeNotifier{
 
 
   Future<void> fetchWeather(String city, String postalCode) async{
+
+
+    /// Fetches weather data for the specified city and/or postal code.
+    ///
+    /// This method checks the in-memory cache before making a network request.
+    /// If the data is already cached, it uses the cached data. Otherwise, it
+    /// fetches the data from the repository, caches it, and updates the state.
+    ///
+    /// Parameters:
+    /// - `city` (String): The name of the city for which to fetch weather information.
+    /// - `postalCode` (String): The postal code for which to fetch weather information.
+    ///
+    /// Returns:
+    /// - `Future<void>`: A future that completes when the weather data has been fetched and the state updated.
 
     final cacheKey = '$city-$postalCode';
 
